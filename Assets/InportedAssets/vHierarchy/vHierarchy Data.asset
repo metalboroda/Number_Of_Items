@@ -27,8 +27,10 @@ MonoBehaviour:
         - iColor: 9
           icon: 
       goDatasByInstanceId:
-        keys: 
-        values: []
+        keys: 5e670000
+        values:
+        - iColor: 9
+          icon: 
     - goDatasByGlobalId:
         keys: []
         values: []
@@ -45,12 +47,8 @@ MonoBehaviour:
         - iColor: 9
           icon: 
       goDatasByInstanceId:
-        keys: 5266000074650000
-        values:
-        - iColor: 0
-          icon: 
-        - iColor: 9
-          icon: 
+        keys: 
+        values: []
     - goDatasByGlobalId:
         keys: []
         values: []
@@ -64,7 +62,5 @@ MonoBehaviour:
         - iColor: 0
           icon: 
       goDatasByInstanceId:
-        keys: 68610000
-        values:
-        - iColor: 0
-          icon: 
+        keys: 
+        values: []
