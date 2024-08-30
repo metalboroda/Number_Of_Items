@@ -15,6 +15,10 @@ namespace Assets.Scripts._GameStuff
     [Header("")]
     [SerializeField] private TextMeshProUGUI _limitText;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip _correctClip;
+    [SerializeField] private AudioClip _incorrectClip;
+
     [Header("References")]
     [SerializeField] private BoxCollider _boxCollider;
 
@@ -22,9 +26,13 @@ namespace Assets.Scripts._GameStuff
     private int _receivedCounter = 0;
     private ItemType _firstItemType;
 
+    private AudioSource _audioSource;
+
     private GameBootstrapper _gameBootstrapper;
 
     private void Awake() {
+      _audioSource = GetComponent<AudioSource>();
+
       _gameBootstrapper = GameBootstrapper.Instance;
 
       _receivedCounter = _receiveLimit;
@@ -41,12 +49,16 @@ namespace Assets.Scripts._GameStuff
             _gameBootstrapper.StateMachine.ChangeState(new GameLoseState(_gameBootstrapper));
 
             _boxCollider.enabled = false;
+
+            _audioSource.PlayOneShot(_incorrectClip);
           }
         }
 
         _receiveCounter++;
         _receivedCounter--;
         _limitText.text = _receivedCounter.ToString();
+
+        _audioSource.PlayOneShot(_correctClip);
 
         Destroy(boxItemHandler.gameObject);
 

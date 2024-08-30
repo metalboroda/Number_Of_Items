@@ -41,7 +41,9 @@ namespace Assets.Scripts.Infrastructure
     private void Start() {
       SceneLoader.LoadSceneAsyncWithDelay(GameHashes.GameScene, 2f, this, () => {
         if (QuestStateOnce == false) {
-          StateMachine.Init(new GameplayState(this));
+          StateMachine.Init(new GameQuestState(this));
+
+          QuestStateOnce = true;
         }
         else {
           StateMachine.ChangeState(new GameplayState(this));
