@@ -5,7 +5,12 @@ namespace Assets.Scripts._GameStuff
 {
   public class BoxItemHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
   {
+    [SerializeField] private ItemType _itemType;
+
+    [Header("")]
     [SerializeField] private float _yPosition = 0.25f;
+
+    public ItemType ItemType => _itemType;
 
     private Vector3 _offset;
 

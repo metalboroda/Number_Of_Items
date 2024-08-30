@@ -24,7 +24,7 @@ namespace Assets.Scripts._GameStuff
           float randomVector = Random.Range(-360f, 360f);
           Quaternion randomRotation = Quaternion.Euler(randomVector, randomVector, randomVector);
 
-          Instantiate(item.BoxItemHandler, randomPosition, randomRotation);
+          Instantiate(item.BoxItemHandler, randomPosition, randomRotation, transform);
         }
       }
 
