@@ -9,7 +9,7 @@ namespace Assets.Scripts.Audio
     public static Soundtrack Instance { get; private set; }
 
     [SerializeField] private AudioMixer _musicMixer;
-
+    
     [Space]
     [SerializeField] private AudioClip[] _soundtrackClips;
 
@@ -35,13 +35,25 @@ namespace Assets.Scripts.Audio
 
       _audioSource.clip = _soundtrackClips[randomIndex];
       _audioSource.Play();
+
+      Invoke(nameof(OnTrackEnd), _audioSource.clip.length);
+    }
+
+    private void OnTrackEnd() {
+      PlayRandomSoundtrack();
     }
 
     private void OnApplicationPause(bool pauseStatus) {
-      if (pauseStatus)
+      if (pauseStatus) {
         _audioSource.Pause();
-      else
+
+        CancelInvoke(nameof(OnTrackEnd));
+      }
+      else {
         _audioSource.UnPause();
+
+        Invoke(nameof(OnTrackEnd), _audioSource.clip.length - _audioSource.time);
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 ﻿using __Game.Resources.Scripts.EventBus;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -33,7 +34,9 @@ namespace Assets.Scripts._GameStuff
 
       newPosition.y = _yPosition;
 
-      transform.position = newPosition;
+      transform.DOMoveY(newPosition.y, 0.2f);
+
+      //transform.position = newPosition;
 
       EventBus<EventStructs.ItemClicked>.Raise(new EventStructs.ItemClicked());
     }

@@ -2087,8 +2087,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _musicMixer: {fileID: 24100000, guid: 618f0dc0539fcf947aaa814bc718890b, type: 2}
   _soundtrackClips:
-  - {fileID: 8300000, guid: 18ebdb6dcd586424397a919b55a5809e, type: 3}
-  - {fileID: 8300000, guid: a9f94d264da558b48a97d1ef032500cb, type: 3}
+  - {fileID: 8300000, guid: ebbf7a66ea186de46b1a27db995d2fd9, type: 3}
+  - {fileID: 8300000, guid: 0a3e495f8c468964c8d5edb6aa59ed2c, type: 3}
 --- !u!82 &1668459660
 AudioSource:
   m_ObjectHideFlags: 0
