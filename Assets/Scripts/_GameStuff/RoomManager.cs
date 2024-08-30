@@ -4,49 +4,57 @@ namespace Assets.Scripts._GameStuff
 {
   public class RoomManager : MonoBehaviour
   {
-    [SerializeField] private BoxHandler[] _boxHandlers;
-    [SerializeField] private GameObject[] _spawnersContainers;
+    [SerializeField] private RoomItem[] _roomItems;
 
-    private int _completedBoxesCount;
+    private int _currentItemIndex;
+    private int _completedBoxesCountInCurrentItem;
 
     private void Awake() {
-      _completedBoxesCount = 0;
+      _currentItemIndex = 0;
+      _completedBoxesCountInCurrentItem = 0;
 
-      foreach (var boxHandler in _boxHandlers)
-        boxHandler.gameObject.SetActive(false);
-
-      foreach (var spawner in _spawnersContainers)
-        spawner.SetActive(false);
-
-      if (_boxHandlers.Length > 0)
-        _boxHandlers[0].gameObject.SetActive(true);
-      if (_spawnersContainers.Length > 0)
-        _spawnersContainers[0].SetActive(true);
+      if (_roomItems.Length > 0) {
+        ActivateBoxHandlerAndSpawner(_roomItems[_currentItemIndex]);
+      }
     }
 
     private void OnEnable() {
-      foreach (BoxHandler boxHandler in _boxHandlers)
-        boxHandler.BoxCompleted += OnBoxCompleted;
+      foreach (var item in _roomItems) {
+        foreach (var boxHandler in item.BoxHandlers)
+          boxHandler.BoxCompleted += OnBoxCompleted;
+      }
     }
 
     private void OnDisable() {
-      foreach (BoxHandler boxHandler in _boxHandlers)
-        boxHandler.BoxCompleted -= OnBoxCompleted;
+      foreach (var item in _roomItems) {
+        foreach (var boxHandler in item.BoxHandlers)
+          boxHandler.BoxCompleted -= OnBoxCompleted;
+      }
     }
 
     private void OnBoxCompleted() {
-      _completedBoxesCount++;
+      _completedBoxesCountInCurrentItem++;
 
-      _boxHandlers[_completedBoxesCount - 1].gameObject.SetActive(false);
-      _spawnersContainers[_completedBoxesCount - 1].SetActive(false);
+      if (_completedBoxesCountInCurrentItem >= _roomItems[_currentItemIndex].BoxHandlers.Length) {
+        _currentItemIndex++;
 
-      if (_completedBoxesCount < _boxHandlers.Length) {
-        _boxHandlers[_completedBoxesCount].gameObject.SetActive(true);
-        _spawnersContainers[_completedBoxesCount].SetActive(true);
+        if (_currentItemIndex < _roomItems.Length) {
+          _completedBoxesCountInCurrentItem = 0;
+
+          ActivateBoxHandlerAndSpawner(_roomItems[_currentItemIndex]);
+        }
+        else {
+          AllBoxesCompleted();
+        }
       }
-      else {
-        AllBoxesCompleted();
-      }
+    }
+
+    private void ActivateBoxHandlerAndSpawner(RoomItem item) {
+      if (item.BoxHandlers.Length > 0 && !item.BoxHandlers[0].gameObject.activeSelf)
+        item.BoxHandlers[0].gameObject.SetActive(true);
+
+      if (item.SpawnersContainers.Length > 0 && !item.SpawnersContainers[0].activeSelf)
+        item.SpawnersContainers[0].SetActive(true);
     }
 
     private void AllBoxesCompleted() {

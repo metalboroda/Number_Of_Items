@@ -1,13 +1,14 @@
 using __Game.Resources.Scripts.EventBus;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Settings;
+using Assets.Scripts.SOs;
 using UnityEngine;
 
 namespace Assets.Scripts.Management
 {
   public class LevelManager : MonoBehaviour
   {
-    [SerializeField] private GameObject[] _levelPrefabs;
+    [SerializeField] private LevelContainerSO _levelContainerSO;
 
     private int _overallLevelIndex = 0;
     private int _currentLevelIndex = 0;
@@ -36,11 +37,11 @@ namespace Assets.Scripts.Management
     }
 
     public void LoadLevel(int levelIndex) {
-      if (levelIndex >= _levelPrefabs.Length)
-        levelIndex = Random.Range(1, _levelPrefabs.Length);
+      if (levelIndex >= _levelContainerSO.LevelPrefabs.Length)
+        levelIndex = Random.Range(1, _levelContainerSO.LevelPrefabs.Length);
 
-      if (levelIndex < _levelPrefabs.Length) {
-        _currentLevelPrefab = _levelPrefabs[levelIndex];
+      if (levelIndex < _levelContainerSO.LevelPrefabs.Length) {
+        _currentLevelPrefab = _levelContainerSO.LevelPrefabs[levelIndex];
 
         Instantiate(_currentLevelPrefab);
       }
@@ -54,8 +55,8 @@ namespace Assets.Scripts.Management
       _currentLevelIndex++;
       _gameSettings.LevelIndex = _currentLevelIndex;
 
-      if (_currentLevelIndex >= _levelPrefabs.Length)
-        _currentLevelIndex = Random.Range(0, _levelPrefabs.Length);
+      if (_currentLevelIndex >= _levelContainerSO.LevelPrefabs.Length)
+        _currentLevelIndex = Random.Range(0, _levelContainerSO.LevelPrefabs.Length);
 
       SettingsManager.SaveSettings(_gameSettings);
       //LoadLevel(_currentLevelIndex);
@@ -74,7 +75,7 @@ namespace Assets.Scripts.Management
     }
 
     private void OnLastLevelOfTheList() {
-      if (_currentLevelIndex == _levelPrefabs.Length - 1)
+      if (_currentLevelIndex == _levelContainerSO.LevelPrefabs.Length - 1)
         EventBus<EventStructs.LastLevelEvent>.Raise(new EventStructs.LastLevelEvent { LastLevel = true });
     }
   }

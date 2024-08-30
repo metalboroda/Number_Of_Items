@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts._GameStuff
@@ -11,10 +12,19 @@ namespace Assets.Scripts._GameStuff
     [SerializeField] private int _receiveLimit = 5;
 
     [Header("")]
+    [SerializeField] private TextMeshProUGUI _limitText;
+
+    [Header("References")]
     [SerializeField] private BoxCollider _boxCollider;
 
     private int _receiveCounter = 0;
+    private int _receivedCounter = 0;
     private ItemType _firstItemType;
+
+    private void Awake() {
+      _receivedCounter = _receiveLimit;
+      _limitText.text = _receivedCounter.ToString();
+    }
 
     private void OnTriggerEnter(Collider other) {
       if (other.TryGetComponent<BoxItemHandler>(out var boxItemHandler)) {
@@ -30,6 +40,8 @@ namespace Assets.Scripts._GameStuff
         }
 
         _receiveCounter++;
+        _receivedCounter--;
+        _limitText.text = _receivedCounter.ToString();
 
         Destroy(boxItemHandler.gameObject);
 
