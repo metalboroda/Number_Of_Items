@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -15,9 +13,6 @@ namespace Assets.Scripts.Audio
     [Space]
     [SerializeField] private AudioClip[] _soundtrackClips;
 
-    private readonly List<int> _previousTracks = new List<int>();
-    private bool _isPaused = false;
-
     private AudioSource _audioSource;
 
     private void Awake() {
@@ -27,55 +22,26 @@ namespace Assets.Scripts.Audio
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
-        StartCoroutine(DoPlaySoundtracks());
+
+        PlayRandomSoundtrack();
       }
       else {
         Destroy(gameObject);
       }
     }
 
-    private IEnumerator DoPlaySoundtracks() {
-      while (true) {
-        if (_isPaused == false) {
-          int randomIndex = GetRandomTrackIndex();
+    private void PlayRandomSoundtrack() {
+      int randomIndex = Random.Range(0, _soundtrackClips.Length);
 
-          _audioSource.clip = _soundtrackClips[randomIndex];
-          _audioSource.Play();
-
-          while (_audioSource.isPlaying) {
-            yield return null;
-          }
-
-          _previousTracks.Add(randomIndex);
-
-          if (_previousTracks.Count > 2)
-            _previousTracks.RemoveAt(0);
-        }
-        else {
-          yield return null;
-        }
-      }
-    }
-
-    private int GetRandomTrackIndex() {
-      int randomIndex;
-
-      do {
-        randomIndex = Random.Range(0, _soundtrackClips.Length);
-      } while (_previousTracks.Contains(randomIndex));
-
-      return randomIndex;
+      _audioSource.clip = _soundtrackClips[randomIndex];
+      _audioSource.Play();
     }
 
     private void OnApplicationPause(bool pauseStatus) {
-      if (pauseStatus) {
+      if (pauseStatus)
         _audioSource.Pause();
-        _isPaused = true;
-      }
-      else {
+      else
         _audioSource.UnPause();
-        _isPaused = false;
-      }
     }
   }
 }

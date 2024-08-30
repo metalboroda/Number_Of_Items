@@ -1119,10 +1119,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner
       objectReference: {fileID: 0}
-    - target: {fileID: 6433625393773110386, guid: c2881f20a008ebc419616bad438c7ace, type: 3}
-      propertyPath: _items.Array.data[0]._amount
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6433625393773110387, guid: c2881f20a008ebc419616bad438c7ace, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1199,7 +1195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6433625393773110387, guid: c2881f20a008ebc419616bad438c7ace, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.75
+      value: -1.875
       objectReference: {fileID: 0}
     - target: {fileID: 6433625393773110387, guid: c2881f20a008ebc419616bad438c7ace, type: 3}
       propertyPath: m_LocalRotation.w

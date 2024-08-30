@@ -182,17 +182,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412\u0435\u0441\u0435\u043B\u0435  \u043A\u043E\u043B\u0435\u0441\u043E"
+  m_text: "\u041B\u0456\u0447\u0431\u0430 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0456\u0432"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 88bbc78a9d4eb144db95ca1121858711, type: 2}
-  m_sharedMaterial: {fileID: 1802962409221402600, guid: 88bbc78a9d4eb144db95ca1121858711, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8d9743c67ed70c48b1ffc142f8e6e13, type: 2}
+  m_sharedMaterial: {fileID: 1802962409221402600, guid: c8d9743c67ed70c48b1ffc142f8e6e13, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255615
-  m_fontColor: {r: 1, g: 1, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 111.85
+  m_fontSize: 101.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -445,7 +445,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 25.834448, y: 17.08}
+  m_Size: {x: 17.92, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
