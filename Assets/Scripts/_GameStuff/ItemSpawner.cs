@@ -6,13 +6,13 @@ namespace Assets.Scripts._GameStuff
   {
     [SerializeField] private SpawnerItem[] _items;
 
+    public SpawnerItem[] Items => _items;
+
     private CapsuleCollider _capsuleCollider;
 
     private void Awake() {
       _capsuleCollider = GetComponent<CapsuleCollider>();
-    }
 
-    private void Start() {
       SpawnItems();
     }
 

@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿using __Game.Resources.Scripts.EventBus;
+using Assets.Scripts.Game.States;
+using Assets.Scripts.Infrastructure;
+using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Assets.Scripts._GameStuff
 {
@@ -6,16 +11,30 @@ namespace Assets.Scripts._GameStuff
   {
     [SerializeField] private RoomItem[] _roomItems;
 
+    [Header("Tutorial")]
+    [SerializeField] private bool _needTutorial = false;
+    [Space]
+    [SerializeField] private GameObject _tutorialFinger;
+
     private int _currentItemIndex;
     private int _completedBoxesCountInCurrentItem;
 
+    private GameBootstrapper _gameBootstrapper;
+
+    private EventBinding<EventStructs.ItemClicked> _itemClicked;
+
     private void Awake() {
+      _gameBootstrapper = GameBootstrapper.Instance;
+
       _currentItemIndex = 0;
       _completedBoxesCountInCurrentItem = 0;
 
-      if (_roomItems.Length > 0) {
+      if (_roomItems.Length > 0)
         ActivateBoxHandlerAndSpawner(_roomItems[_currentItemIndex]);
-      }
+    }
+
+    private void Start() {
+      Tutorial();
     }
 
     private void OnEnable() {
@@ -23,6 +42,8 @@ namespace Assets.Scripts._GameStuff
         foreach (var boxHandler in item.BoxHandlers)
           boxHandler.BoxCompleted += OnBoxCompleted;
       }
+
+      _itemClicked = new EventBinding<EventStructs.ItemClicked>(OnItemClicked);
     }
 
     private void OnDisable() {
@@ -30,6 +51,8 @@ namespace Assets.Scripts._GameStuff
         foreach (var boxHandler in item.BoxHandlers)
           boxHandler.BoxCompleted -= OnBoxCompleted;
       }
+
+      _itemClicked.Remove(OnItemClicked);
     }
 
     private void OnBoxCompleted() {
@@ -58,7 +81,18 @@ namespace Assets.Scripts._GameStuff
     }
 
     private void AllBoxesCompleted() {
-      Debug.Log("Всі коробки завершені!");
+      _gameBootstrapper.StateMachine.ChangeState(new GameWinState(_gameBootstrapper));
+    }
+
+    private void Tutorial() {
+      if (_needTutorial == false) {
+        _tutorialFinger.SetActive(false);
+        return;
+      }
+    }
+
+    private void OnItemClicked() {
+      _tutorialFinger?.SetActive(false);
     }
   }
 }

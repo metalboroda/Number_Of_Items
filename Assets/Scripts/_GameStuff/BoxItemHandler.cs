@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using __Game.Resources.Scripts.EventBus;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts._GameStuff
@@ -32,6 +34,8 @@ namespace Assets.Scripts._GameStuff
       newPosition.y = _yPosition;
 
       transform.position = newPosition;
+
+      EventBus<EventStructs.ItemClicked>.Raise(new EventStructs.ItemClicked());
     }
 
     public void OnDrag(PointerEventData eventData) {

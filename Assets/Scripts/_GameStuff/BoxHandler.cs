@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Assets.Resources.Scripts.Game.States;
+using Assets.Scripts.Infrastructure;
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +9,6 @@ namespace Assets.Scripts._GameStuff
   public class BoxHandler : MonoBehaviour
   {
     public event Action BoxCompleted;
-    public event Action GameLost;
 
     [SerializeField] private int _receiveLimit = 5;
 
@@ -21,7 +22,11 @@ namespace Assets.Scripts._GameStuff
     private int _receivedCounter = 0;
     private ItemType _firstItemType;
 
+    private GameBootstrapper _gameBootstrapper;
+
     private void Awake() {
+      _gameBootstrapper = GameBootstrapper.Instance;
+
       _receivedCounter = _receiveLimit;
       _limitText.text = _receivedCounter.ToString();
     }
@@ -33,7 +38,7 @@ namespace Assets.Scripts._GameStuff
         }
         else {
           if (boxItemHandler.ItemType != _firstItemType) {
-            Debug.Log("Item types do not match. You lost!");
+            _gameBootstrapper.StateMachine.ChangeState(new GameLoseState(_gameBootstrapper));
 
             _boxCollider.enabled = false;
           }
@@ -45,11 +50,8 @@ namespace Assets.Scripts._GameStuff
 
         Destroy(boxItemHandler.gameObject);
 
-        if (_receiveCounter >= _receiveLimit) {
-          Debug.Log("Limit reached");
-
+        if (_receiveCounter >= _receiveLimit)
           BoxCompleted?.Invoke();
-        }
       }
     }
   }

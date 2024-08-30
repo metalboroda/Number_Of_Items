@@ -101,5 +101,9 @@ namespace __Game.Resources.Scripts.EventBus
       public int Time;
     }
     #endregion
+
+    #region Item
+    public struct ItemClicked : IEvent { }
+    #endregion
   }
 }
