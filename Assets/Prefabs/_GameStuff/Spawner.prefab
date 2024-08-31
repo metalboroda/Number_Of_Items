@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6433625393773110387}
-  - component: {fileID: 6433625393773110397}
   - component: {fileID: 6433625393773110386}
   m_Layer: 2
   m_Name: Spawner
@@ -33,20 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6433625393773110397
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6433625393773110384}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6433625393773110386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91519b40fee0e054a8418f48bbaab534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sphereRadius: 0.4
+  _sphereCenter: {x: 0, y: 0, z: 0}
   _items:
   - _boxItemHandler: {fileID: 3695719189555147677, guid: d93083603ddb66145897b8c87f20b23e, type: 3}
     _amount: 1
